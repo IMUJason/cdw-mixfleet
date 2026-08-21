@@ -1,0 +1,6 @@
+﻿instance,budget_s,constr_reprice,ils_eval,ils_reprice,ils_time_s,ils_iters,calib_iters,reprice_status,cpx_incumbent,sa_reprice,gap_ils_inc_pct,gap_sa_inc_pct,ils_vs_sa_pct
+S,30,16336,14628,14628,30,418,419,Optimal,14608,14627,0.14,0.13,0.01
+M,60,29543,22338,22338,60,194,195,Optimal,22275,22359,0.28,0.38,-0.10
+L,90,27792,25052,25052,90,121,122,Optimal,24865,25175,0.75,1.25,-0.49
+X,120,38231,30385,30385,123,47,48,Optimal,29780,30072,2.03,0.98,1.04
+XL,180,67232,60740,60740,181,50,51,Optimal,54727,55764,10.99,1.89,8.92

@@ -1,0 +1,11 @@
+﻿instance,variant,iters,cost,status,vs_full_pct,time_s
+S,no_ruin_recreate,158299,14729.0,Optimal,0.69,20.2
+S,no_restart,158299,14627.0,Optimal,0.0,29.6
+M,no_ruin_recreate,190378,22515.0,Optimal,0.7,41.6
+M,no_restart,190378,22350.0,Optimal,-0.04,60.0
+L,no_ruin_recreate,228809,25289.0,Optimal,0.45,58.4
+L,no_restart,228809,25102.0,Optimal,-0.29,90.0
+X,no_ruin_recreate,178709,30239.0,Optimal,0.56,80.2
+X,no_restart,178709,30055.0,Optimal,-0.06,116.4
+XL,no_ruin_recreate,171860,55763.0,Optimal,-0.0,100.1
+XL,no_restart,171860,55715.0,Optimal,-0.09,163.6

@@ -1,0 +1,3 @@
+﻿instance,obj,cpx_status,cpx_bound,ftl_shuttles,ftl_transport,ftl_net,ltl_trips,ltl_transport,ltl_net,shortage_penalty,decomposition_check,veh_ftl_only,veh_ltl_only,veh_mixed,veh_idle
+S,14608.2,Optimal,14593.6,17,9205.0,-2103.0,13,7865.0,-2714.0,2355.0,-0.0,2,3,2,0
+M,22274.7,Optimal,21887.7,35,18308.0,-5982.0,19,11893.0,-4059.0,2115.0,0.0,2,7,4,1

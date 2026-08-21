@@ -1,0 +1,5 @@
+﻿instance,seeds,heu_time_mean,gap_mean_pct,gap_max_pct,gap_min_pct,gap_certified_mean_pct,gap_certified_max_pct
+S,5,26.8,0.959,3.646,0.129,1.139,3.75
+M,5,57.5,0.335,0.563,0.095,2.094,3.127
+L,5,86.9,,,,,
+X,5,115.2,,,,,

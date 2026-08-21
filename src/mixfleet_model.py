@@ -94,12 +94,16 @@ def sink_for_class(cls, inst):
     return inst["sinks"][-1]
 
 
-def build_mip(inst, time_limit=1800, gap=0.02, fleet_budget=None, solve=True):
+def build_mip(inst, time_limit=1800, gap=0.02, fleet_budget=None, solve=True,
+              use_flow=True, use_mtz=True):
     """CDW-MixFleet MILP(NP-hard):
     FTL: 整车直运(指派整数趟); LTL: 集货穿越(TSP 序 MTZ 消环, 部分装载≤W)。
     有限车队(类别专营), 趟时间≤夜间窗。CPLEX 1800s 难求最优 → 启发式有戏。
     fleet_budget: 每车总时间预算; 默认 NIGHT*ntr(多夜口径), 单夜探测时传 NIGHT。
-    solve=False 时仅建模型不求解(供 reprice.py 固定结构后重定价)。"""
+    solve=False 时仅建模型不求解(供 reprice.py 固定结构后重定价)。
+    use_flow=False: 紧致对照公式(去吨位流强化, LP 松弛对比实验用);
+    use_mtz=False: 去 MTZ(吨位流平衡已兼任连通性, 冗余性验证实验用)。
+    默认 True/True 与历史行为逐位一致。"""
     ftl = inst["ftl"]; ltl = inst["ltl"]; D = inst["D"]; depot = inst["depot_idx"]
     V = range(inst["n_vehicles"]); W = P.TRUCK_CAP_T; NIGHT = P.NIGHT_HOURS; ntr = inst.get("trips_per_vehicle", 5)
     node_of_ftl = {f["id"]: inst["ftl_idx"][f["id"]] for f in ftl}
@@ -130,7 +134,8 @@ def build_mip(inst, time_limit=1800, gap=0.02, fleet_budget=None, solve=True):
         for t in range(ntr):
             for l in lsvc:
                 load[v, t, l] = pulp.LpVariable(f"ld_{v}_{t}_{l}", lowBound=0, upBound=W)
-                u[v, t, l] = pulp.LpVariable(f"u_{v}_{t}_{l}", lowBound=1, upBound=len(lsvc) + 1)
+                if use_mtz:
+                    u[v, t, l] = pulp.LpVariable(f"u_{v}_{t}_{l}", lowBound=1, upBound=len(lsvc) + 1)
             # 路线网络: depot → 站点(TSP) → 汇 → depot (汇=终节点)
             nodes_v = [depot] + [node_of_ltl[l] for l in lsvc] + [knode_v]
             for i in nodes_v:
@@ -142,7 +147,7 @@ def build_mip(inst, time_limit=1800, gap=0.02, fleet_budget=None, solve=True):
                         if i == depot and j == knode_v: continue  # depot 不直去汇
                         z[v, t, i, j] = pulp.LpVariable(f"z_{v}_{t}_{i}_{j}", cat="Binary")
                         # 吨位流: 弧 (i,j) 上的已装吨位; depot 出弧空载(f=0)不创建, 汇返回弧空载不创建
-                        if i != depot and i != knode_v:
+                        if use_flow and i != depot and i != knode_v:
                             fflow[v, t, i, j] = pulp.LpVariable(f"ff_{v}_{t}_{i}_{j}", lowBound=0, upBound=W)
     # ---- 目标(承运商视角: 按车次计费 + 车队固定 + 按吨位处置/收益) ----
     transport = 0; disposal = 0; revenue = 0
@@ -188,7 +193,7 @@ def build_mip(inst, time_limit=1800, gap=0.02, fleet_budget=None, solve=True):
         lsvc = [l["id"] for l in ltl if lcls[l["id"]] == vc]
         nodes_v = [depot] + [node_of_ltl[l] for l in lsvc] + [knode]  # 含汇
         # FTL 趟时间
-        ftl_time = pulp.lpSum([ntr_f[v, f["id"]] * (D[depot][node_of_ftl[f["id"]]] + D[node_of_ftl[f["id"]]][knode] + D[knode][depot]) / 35.0
+        ftl_time = pulp.lpSum([ntr_f[v, f["id"]] * ((D[depot][node_of_ftl[f["id"]]] + D[node_of_ftl[f["id"]]][knode] + D[knode][depot]) / 35.0 + P.FTL_SVC_H)
                                for f in ftl if (v, f["id"]) in ntr_f]) if any((v, f["id"]) in ntr_f for f in ftl) else 0
         for t in range(ntr):
             # LTL 趟: 装载≤W, 穿越+装卸 ≤ 夜间窗(与 FTL 共享车队时间)
@@ -210,27 +215,28 @@ def build_mip(inst, time_limit=1800, gap=0.02, fleet_budget=None, solve=True):
             m += sink_out == depot_out, f"sk_out_{v}_{t}"
             for i in lsvc:
                 for j in lsvc:
-                    if i != j and (v, t, node_of_ltl[i], node_of_ltl[j]) in z:
+                    if use_mtz and i != j and (v, t, node_of_ltl[i], node_of_ltl[j]) in z:
                         m += u[v, t, i] - u[v, t, j] + (len(lsvc)+1) * z[v, t, node_of_ltl[i], node_of_ltl[j]] <= len(lsvc), \
                            f"lmtz_{v}_{t}_{i}_{j}"
             # ---- 吨位流(单商品流)强耦合: 分数弧必须携带一致的吨位流 ----
             # 1) 流上界 = 容量×弧访问
-            for key, var in list(fflow.items()):
-                (vv, tt, i, j) = key
-                if vv == v and tt == t:
-                    m += var <= W * z[v, t, i, j], f"ffcap_{v}_{t}_{i}_{j}"
-            # 站点流平衡: 净流出 = 装载量(装货使车上吨位增加)
-            for l in lsvc:
-                node = node_of_ltl[l]
-                outf = pulp.lpSum([fflow[v, t, node, j] for j in nodes_v if (v, t, node, j) in fflow])
-                inf = pulp.lpSum([fflow[v, t, i, node] for i in nodes_v if (v, t, i, node) in fflow])
-                if (v, t, l) in load:
-                    m += outf - inf == load[v, t, l], f"ffbal_{v}_{t}_{l}"
-            # 汇入流 = 总装载(卸光); depot 出弧空载已由变量缺失隐式保证
-            total_load = pulp.lpSum([load[v, t, l] for l in lsvc if (v, t, l) in load])
-            sink_in_flow = pulp.lpSum([fflow[v, t, i, knode] for i in nodes_v
-                                       if (v, t, i, knode) in fflow])
-            m += sink_in_flow == total_load, f"ffsink_{v}_{t}"
+            if use_flow:
+                for key, var in list(fflow.items()):
+                    (vv, tt, i, j) = key
+                    if vv == v and tt == t:
+                        m += var <= W * z[v, t, i, j], f"ffcap_{v}_{t}_{i}_{j}"
+                # 站点流平衡: 净流出 = 装载量(装货使车上吨位增加)
+                for l in lsvc:
+                    node = node_of_ltl[l]
+                    outf = pulp.lpSum([fflow[v, t, node, j] for j in nodes_v if (v, t, node, j) in fflow])
+                    inf = pulp.lpSum([fflow[v, t, i, node] for i in nodes_v if (v, t, i, node) in fflow])
+                    if (v, t, l) in load:
+                        m += outf - inf == load[v, t, l], f"ffbal_{v}_{t}_{l}"
+                # 汇入流 = 总装载(卸光); depot 出弧空载已由变量缺失隐式保证
+                total_load = pulp.lpSum([load[v, t, l] for l in lsvc if (v, t, l) in load])
+                sink_in_flow = pulp.lpSum([fflow[v, t, i, knode] for i in nodes_v
+                                           if (v, t, i, knode) in fflow])
+                m += sink_in_flow == total_load, f"ffsink_{v}_{t}"
             tt = pulp.lpSum([var * D[i][j] / 35.0 for (veh, tslot, i, j), var in z.items() if veh == v and tslot == t]) + \
                  pulp.lpSum([load[v, t, l] for l in lsvc if (v, t, l) in load]) / W * P.LOAD_UNLOAD_H
             m += tt <= NIGHT, f"ltw_{v}_{t}"

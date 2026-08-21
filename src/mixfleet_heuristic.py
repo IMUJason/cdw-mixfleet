@@ -16,7 +16,7 @@ def ftl_trip_cost(v, fid, inst):
     D = inst["D"]; depot = inst["depot_idx"]
     d = D[depot][inst["ftl_idx"][fid]] + D[inst["ftl_idx"][fid]][knode] + D[knode][depot]
     transport = P.TRIP_FIXED + P.TRIP_PER_KM * d
-    return transport, d / 35.0
+    return transport, d / 35.0 + P.FTL_SVC_H
 
 
 def ftl_tonnage(v, fid, ntrip, inst):
@@ -135,7 +135,7 @@ def construct(inst, rng):
         # FTL 单趟时间
         k = MF.sink_for_class(cls, inst); knode = inst["sink_idx"][k["id"]]
         d = inst["D"][inst["depot_idx"]][inst["ftl_idx"][fid]] + inst["D"][inst["ftl_idx"][fid]][knode] + inst["D"][knode][inst["depot_idx"]]
-        th = d / 35.0
+        th = d / 35.0 + P.FTL_SVC_H
         for _ in range(need):
             avail = [v for v in vs if veh_time_left.get(v, 0) >= th]
             if not avail: break

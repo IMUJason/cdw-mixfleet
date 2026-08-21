@@ -1,0 +1,11 @@
+﻿instance,formulation,lp_obj,lp_time_s,lp_status,incumbent,lp_gap_pct
+S,compact,6686.8,0,Optimal,14608,54.2
+S,strengthened,13011.2,0,Optimal,14608,10.9
+M,compact,9340.9,0,Optimal,22275,58.1
+M,strengthened,20413.7,0,Optimal,22275,8.4
+L,compact,8316.4,0,Optimal,24865,66.6
+L,strengthened,22734.2,0,Optimal,24865,8.6
+X,compact,7820.8,1,Optimal,29780,73.7
+X,strengthened,27513.5,2,Optimal,29780,7.6
+XL,compact,24135.9,1,Optimal,54727,55.9
+XL,strengthened,50099.8,2,Optimal,54727,8.5
