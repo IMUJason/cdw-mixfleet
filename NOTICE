@@ -1,0 +1,9 @@
+NOTICE
+======
+Driving distances in instances/*.csv ([distances_km] sections) were queried
+from the Amap (autoNavi) open platform API (c) Amap. They are included here
+in derived form (site-to-site driving-distance matrices) for research
+reproducibility. Facility coordinates were geocoded from public POI search;
+backfill/landfill anchors use representative coordinates (see paper Sec. 6.1).
+Demand realizations are synthetic (literature-calibrated tonnages at real
+sub-district locations).
