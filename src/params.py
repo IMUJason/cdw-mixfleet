@@ -84,11 +84,13 @@ def describe():
 
 # ================= 求解器选择(优先 CPLEX 教育版, 退化 CBC) =================
 import pulp as _pulp
-def get_solver(msg=0, timeLimit=120, gapRel=0.05, logPath=None):
-    """优先 CPLEX_PY(教育版无限制), 否则 CBC。kwargs 与 PULP_CBC_CMD 一致, 可直接替换。"""
+def get_solver(msg=0, timeLimit=120, gapRel=0.05, logPath=None, threads=None):
+    """优先 CPLEX_PY(教育版无限制), 否则 CBC。kwargs 与 PULP_CBC_CMD 一致, 可直接替换。
+    threads=None 用求解器默认(全部核); 并行筛选用小值限核(仅 CPLEX 生效, CBC 忽略)。"""
     try:
         import cplex  # noqa: F401
         kw = dict(msg=msg, timeLimit=timeLimit, gapRel=gapRel)
+        if threads is not None: kw["threads"] = threads
         if logPath is not None: kw["logPath"] = logPath
         return _pulp.CPLEX_PY(**kw)
     except Exception:
