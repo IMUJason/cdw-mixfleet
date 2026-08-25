@@ -18,6 +18,13 @@ It contains everything needed to reproduce the paper's computational results:
 - **`results_reference.csv`** — the paper's benchmark-table reference numbers
   (exact vs. SA) to compare your runs against, including the fixed SA iteration
   budgets.
+- **`src/gen_scale.py`** — regenerates the paper's two instance families
+  bit-for-bit (fixed seeds): fresh demand draws from the same generator on the
+  same network, fleets sized automatically per draw (the sizing rule
+  reproduces the hand-calibrated S/M/L fleets within one vehicle), with a
+  single-site LTL-dominance screen. Family members are addressed by
+  `(n_ftl, n_ltl, seed)`; the per-member coordinates are in the family
+  reference CSVs.
 - **`results_reference/`** — the reference CSVs behind **every other reported
   table and experiment** (five-seed robustness, component and per-operator
   ablations, ILS baseline, LP-relaxation gaps, MTZ redundancy, sensitivity and
@@ -101,6 +108,7 @@ Every number reported in the paper traces to one of the CSVs in
 | Root LP-relaxation gaps (compact vs. strengthened) | `lp_gaps.csv` |
 | MTZ redundancy (strengthened MIP without MTZ) | `mtz_redundancy.csv` |
 | Five-seed robustness (S, M) | `mixfleet_seeds.csv`, `mixfleet_seeds_agg.csv` |
+| **Instance families** (certified 10 + large 10, paper family section) | `scale_family_small.csv`, `scale_family_large.csv` (screening log: `scale_family_screen.csv`) |
 | SA component ablation (no ruin-and-recreate / no restart) | `ablation.csv` |
 | Per-operator ablation (9 variants × 5 instances) | `ablation_ops.csv` |
 | ILS baseline and the scale crossover | `baseline_ils.csv` |
@@ -124,6 +132,8 @@ solved as an LP. All solvers share one evaluator this way (`solve_sa.py` and
 
 ```
 instances/S.csv M.csv L.csv X.csv XL.csv   # frozen instances (incl. distance matrices)
+data/external/dongsheng_real_network.json  # queried Amap network (anchors + driving matrix);
+                                           #   required by the family generator (NOTICE applies)
 src/params.py              # cost parameters with provenance IDs (P01-P10)
 src/instance_io.py         # instance CSV export/load (round-trip exact)
 src/mixfleet_model.py      # MILP: tonnage-flow strengthened formulation
@@ -136,6 +146,8 @@ src/solve_sa.py            # CLI: SA (+auto reprice, ablation switches)
 src/solve_ils.py           # CLI: ILS (+auto reprice, calibration mode)
 src/solve_reprice.py       # CLI: re-price a saved plan
 src/plan_io.py             # dispatch-plan CSV format
+src/gen_scale.py           # instance-family generator (fixed seeds, auto fleet
+                           #   calibrated to the paper's fleets, LTL dominance screen)
 results_reference.csv      # benchmark-table reference numbers (root)
 results_reference/         # reference CSVs for all other tables
 NOTICE                     # data attribution (Amap)

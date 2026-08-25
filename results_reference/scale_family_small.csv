@@ -1,0 +1,11 @@
+﻿family,size_id,nf,nl,seed,veh,screen,cpx_status,cpx_incumbent,cpx_bound,cpx_gap_pct,cpx_time_s,closed,lp_bound,best_lb,sa_reprice,sa_iters,sa_time_s,sa_gap_inc_pct,sa_gap_cert_pct,ils_reprice,ils_cycles,ils_time_s,ils_gap_inc_pct,ils_gap_cert_pct,sa_vs_ils_pct,demoted
+small,SA08,3,8,1,3F+8L/17v (7e+4d+6r),True,Optimal,41648,41453,0.4682,47,True,38505,41453,41699,293042,60,0.12,0.59,49355,506,60,18.50,19.06,-15.51,False
+small,SA08,3,8,2,3F+8L/17v (8e+5d+4r),True,Optimal,44753,44639,0.2561,5,True,39503,44639,44760,278179,60,0.02,0.27,44881,725,60,0.28,0.54,-0.27,False
+small,SB10,4,10,4,4F+10L/15v (7e+5d+3r),True,Optimal,38588,38482,0.275,8,True,34483,38482,38601,251295,60,0.03,0.31,39349,682,60,1.97,2.25,-1.90,False
+small,SB12,4,12,4,4F+12L/16v (7e+5d+4r),True,Optimal,39190,39003,0.477,159,True,35039,39003,39205,221590,59,0.04,0.52,39983,428,60,2.02,2.51,-1.95,False
+small,SG09,2,9,1,2F+9L/15v (4e+4d+7r),True,Optimal,34023,33857,0.4871,2,True,28590,33857,34021,309455,60,-0.00,0.49,34012,361,60,-0.03,0.46,0.03,False
+small,SG09,2,9,2,2F+9L/15v (8e+3d+4r),True,Optimal,41530,41323,0.4984,12,True,36532,41323,41537,278966,60,0.02,0.52,41667,561,60,0.33,0.83,-0.31,False
+small,SH07,3,7,1,3F+7L/16v (7e+4d+5r),True,Optimal,41200,40994,0.4996,7,True,38159,40994,41226,298955,60,0.06,0.57,48901,665,60,18.69,19.29,-15.70,False
+small,SG08,2,8,1,2F+8L/14v (4e+4d+6r),True,Optimal,33682,33514,0.4989,8,True,28243,33514,33693,313764,60,0.03,0.53,33743,400,60,0.18,0.68,-0.15,False
+small,SF13,4,13,2,4F+13L/21v (9e+6d+6r),True,Optimal,60192,59892,0.4993,170,True,54624,59892,61693,169555,60,2.49,3.01,61707,132,60,2.52,3.03,-0.02,False
+small,SF11,4,11,4,4F+11L/15v (7e+5d+3r),True,Optimal,38885,38690,0.5,18,True,34772,38690,38907,228735,60,0.06,0.56,39645,560,60,1.96,2.47,-1.86,False
