@@ -36,7 +36,7 @@ def ltl_trip_eval(route, vc, inst):
     dist = sum(D[nodeseq[i]][nodeseq[i+1]] for i in range(len(nodeseq)-1))
     dem = {l["id"]: l["demand"] for l in inst["ltl"]}
     load = min(sum(dem[l] for l in route), P.TRUCK_CAP_T)
-    time_h = dist / 35.0 + (load / P.TRUCK_CAP_T) * P.LOAD_UNLOAD_H   # 与 MIP ltw/fleet 约束同式
+    time_h = dist / 35.0 + (load / P.TRUCK_CAP_T) * P.LOAD_UNLOAD_H + P.LTL_STOP_H * len(route)   # 与 MIP ltw/fleet 约束同式
     transport = P.TRIP_FIXED + P.TRIP_PER_KM * dist       # 车次成本(固定+里程)
     disposal = load * k["fee"]; revenue = load * k["revenue"]
     return transport + disposal - revenue, load, time_h
@@ -82,7 +82,7 @@ def evaluate(ftl_ntrip, ltl_routes, inst):
             dist = sum(D[nodeseq[i]][nodeseq[i+1]] for i in range(len(nodeseq)-1))
             total += P.TRIP_FIXED + P.TRIP_PER_KM * dist          # 纯运输(固定+里程)
             load = min(sum(dem[l] for l in route), P.TRUCK_CAP_T)
-            time_h = dist / 35.0 + (load / P.TRUCK_CAP_T) * P.LOAD_UNLOAD_H
+            time_h = dist / 35.0 + (load / P.TRUCK_CAP_T) * P.LOAD_UNLOAD_H + P.LTL_STOP_H * len(route)
             if time_h > P.NIGHT_HOURS: total += 1e9 * (time_h - P.NIGHT_HOURS)   # 硬约束等效
             rem = P.TRUCK_CAP_T
             for l in route:

@@ -114,6 +114,7 @@ Every number reported in the paper traces to one of the CSVs in
 | ILS baseline and the scale crossover | `baseline_ils.csv` |
 | Parameter sensitivity (trip fee, night window, penalty) | `sensitivity_mixfleet.csv` |
 | Symmetric FTL handling time (+0.5 h/trip) | `ftl_handling_sens.csv` |
+| Fixed LTL per-visit handling time (0 / 0.1 / 0.2 h per stop) | `ltl_stop_sens.csv` |
 | Shortage-penalty counterfactual (π = 50 / 500) | `pi_counterfactual.csv` |
 | Dispatch structure decomposition | `structure_stats.csv` |
 | Forced single-mode counterfactuals | `mode_counterfactual.csv` |

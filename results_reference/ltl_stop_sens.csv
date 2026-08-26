@@ -1,0 +1,4 @@
+instance,ltl_stop_h,cpx_status,cpx_incumbent,cpx_bound,cpx_time_s,sa_reprice,sa_time_s,ftl_only,ltl_only,mixed,idle,n_ftl_trips,n_ltl_routes
+M,0.0,Optimal,22275,21887,901,22359,60,3,5,6,0,35,19
+M,0.1,Optimal,22275,21894,901,22364,60,2,6,6,0,35,19
+M,0.2,Optimal,22275,21884,901,22331,60,3,4,6,1,35,19

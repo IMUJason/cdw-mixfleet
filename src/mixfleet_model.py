@@ -238,12 +238,16 @@ def build_mip(inst, time_limit=1800, gap=0.02, fleet_budget=None, solve=True,
                                            if (v, t, i, knode) in fflow])
                 m += sink_in_flow == total_load, f"ffsink_{v}_{t}"
             tt = pulp.lpSum([var * D[i][j] / 35.0 for (veh, tslot, i, j), var in z.items() if veh == v and tslot == t]) + \
-                 pulp.lpSum([load[v, t, l] for l in lsvc if (v, t, l) in load]) / W * P.LOAD_UNLOAD_H
+                 pulp.lpSum([load[v, t, l] for l in lsvc if (v, t, l) in load]) / W * P.LOAD_UNLOAD_H + \
+                 P.LTL_STOP_H * pulp.lpSum([var for (veh, tslot, i, j), var in z.items()
+                                            if veh == v and tslot == t and j in [node_of_ltl[l] for l in lsvc]])
             m += tt <= NIGHT, f"ltw_{v}_{t}"
         # FTL+LTL 共享车队总时间(有限车队耦合; 装卸时间计入, 与 per-trip 窗口及论文 eq(8) 一致)
         # 注意: 用 items() 遍历, 引用解包键的 tt, 避免外层循环陈旧变量(历史 bug 教训)
         ltl_total = pulp.lpSum([var * D[i][j] / 35.0 for (veh, tt, i, j), var in z.items() if veh == v]) + \
-                    pulp.lpSum([var for (veh, tt, l), var in load.items() if veh == v]) / W * P.LOAD_UNLOAD_H
+                    pulp.lpSum([var for (veh, tt, l), var in load.items() if veh == v]) / W * P.LOAD_UNLOAD_H + \
+                    P.LTL_STOP_H * pulp.lpSum([var for (veh, tt, i, j), var in z.items()
+                                               if veh == v and j in [node_of_ltl[l] for l in lsvc]])
         fb = inst.get("fleet_budget")
         budget_v = next((x for x in (fleet_budget, fb) if x is not None), NIGHT * ntr)
         m += ftl_time + ltl_total <= budget_v, f"fleet_{v}"
