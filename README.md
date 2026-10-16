@@ -118,8 +118,33 @@ Every number reported in the paper traces to one of the CSVs in
 | Shortage-penalty counterfactual (π = 50 / 500) | `pi_counterfactual.csv` |
 | Dispatch structure decomposition | `structure_stats.csv` |
 | Forced single-mode counterfactuals | `mode_counterfactual.csv` |
+| **Tier 2 equal-effort single-mode** (revision, Table: mode-restricted) | `mode_restricted.csv` |
+| **Tier 2 symmetric-timing variant** (revision) | `mode_restricted_sym.csv`, `mixed_sym.csv` |
+| Closure runs (X double-time, L extended) | `e2_closure.csv` |
+| ALNS benchmark (5 anchor instances) | `alns_bench.csv` |
+| ALNS 20-family instances (×3 seeds) | `alns_family.csv` |
+| ALNS education ablation | `alns_nopolish.csv` |
+| SA 10-seed robustness (S/M/L/X) | `sa_seeds10.csv` |
+| Factorial experiment (H×π, fleet×fee) | `factorial.csv` |
+| Evaluator diagnostic (first-fit vs exact) | `evaluator_diag.csv` |
 
 Exact/SA numbers for all five instances: `results_reference.csv` (root).
+
+## Table/figure → command index
+
+| Paper exhibit | Script | Reference CSV |
+|---|---|---|
+| Fig. 3 (convergence) | `src/make_paper_figs.py` | `results/logs/sa_trace_*.csv` |
+| Fig. 4 (case map) | `src/make_paper_figs.py` | `data/external/dongsheng_*.json` |
+| Fig. 5 (benchmark) | `src/make_paper_figs.py` | `results_reference/mixfleet_bench.csv` |
+| Table 3 (benchmark) | `src/solve_exact.py` + `src/solve_sa.py` | `results_reference.csv` |
+| Table 4 (LP gaps) | `src/run_lp_gaps.py` | `results_reference/lp_gaps.csv` |
+| Table 5 (ILS) | `src/solve_ils.py` | `results_reference/baseline_ils.csv` |
+| Tier 2 (restricted) | `src/run_mode_restricted.py` | `results_reference/mode_restricted.csv` |
+| Symmetric timing | `src/run_mode_restricted_sym.py` + `src/run_mixed_sym.py` | `results_reference/mode_restricted_sym.csv` |
+| ALNS comparison | `src/run_alns.py` | `results_reference/alns_bench.csv` |
+| Factorial | `src/run_factorial.py` | `results_reference/factorial.csv` |
+| Evaluator diag | `src/run_evaluator_diag.py` | `results_reference/evaluator_diag.csv` |
 
 ## Reporting basis (important)
 

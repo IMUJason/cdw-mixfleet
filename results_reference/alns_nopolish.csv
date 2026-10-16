@@ -1,0 +1,6 @@
+instance,alns_nopolish_reprice,status,time_s,iters,budget_s,cpx_incumbent,gap_inc_pct
+S,14766,Optimal,30,29018,30,14608.0,1.08
+M,23012,Optimal,60,28425,60,22275.0,3.31
+L,26097,Optimal,90,28988,90,24865.0,4.95
+X,34235,Optimal,120,10025,120,29780.0,14.96
+XL,65374,Optimal,180,7726,180,54727.0,19.45

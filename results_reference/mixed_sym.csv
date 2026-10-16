@@ -1,0 +1,6 @@
+instance,cpx_incumbent,cpx_bound,cpx_gap_pct,cpx_time_s,note
+M,23692,,,,from ftl_handling_sens.csv
+S,16026,16010,0.1,13,
+L,26271,25648,2.3728,1202,
+X,29867,28718,3.8488,1811,
+XL,68435,62180,9.1396,1968,

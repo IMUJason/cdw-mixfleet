@@ -1,0 +1,11 @@
+instance,mode,cpx_status,cpx_incumbent,cpx_bound,cpx_gap_pct,cpx_time_s,sa_reprice,reprice_status,base_mixed_incumbent,premium_vs_base_mixed_pct
+S,all-ftl,Optimal,16542,16542,0.0,0,18379,Optimal,14608.0,13.24
+S,all-ltl,Optimal,15544,15476,0.4394,302,15598,Optimal,14608.0,6.41
+M,all-ftl,Optimal,25449,25437,0.0443,8,28013,Optimal,22275.0,14.25
+M,all-ltl,Optimal,22938,22523,1.8109,909,23123,Optimal,22275.0,2.98
+L,all-ftl,Optimal,28534,28486,0.169,1209,36474,Optimal,24865.0,14.76
+L,all-ltl,Optimal,25450,24699,2.9493,1241,25719,Optimal,24865.0,2.35
+X,all-ftl,Optimal,33483,33483,0.0,9,33483,Optimal,29780.0,12.44
+X,all-ltl,Optimal,30629,27744,9.4196,1821,29202,Optimal,29780.0,2.85
+XL,all-ftl,Optimal,72589,72258,0.4552,1824,105461,Optimal,54727.0,32.64
+XL,all-ltl,Optimal,68284,61316,10.2052,1821,73212,Optimal,54727.0,24.77

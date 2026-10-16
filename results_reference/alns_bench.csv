@@ -1,0 +1,6 @@
+instance,alns_reprice,reprice_status,time_s,iters,budget_s,cpx_incumbent,gap_inc_pct,sa_reprice,alns_vs_sa_pct
+S,14766,Optimal,30,22441,30,14608.0,1.08,14627,0.95
+M,22725,Optimal,60,19404,60,22275.0,2.02,22359,1.64
+L,26078,Optimal,90,15959,90,24865.0,4.88,25175,3.59
+X,33014,Optimal,120,9004,120,29780.0,10.86,30072,9.78
+XL,65374,Optimal,180,7110,180,54727.0,19.45,55764.0,17.23

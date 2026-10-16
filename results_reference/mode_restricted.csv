@@ -1,0 +1,11 @@
+instance,mode,n_demands,cpx_status,cpx_incumbent,cpx_bound,cpx_gap_pct,cpx_time_s,sa_reprice,sa_time_s,sa_iters,reprice_status,mixed_cpx_incumbent,mixed_sa_reprice,best_restricted,premium_exact_pct,premium_sa_pct
+S,all-ftl,11,Optimal,15125,15125,0.0,0,15125,19,158299,Optimal,14608.0,14627.0,15125,3.54,3.41
+S,all-ltl,11,Optimal,15544,15476,0.4394,302,15598,30,88932,Optimal,14608.0,14627.0,15544,6.41,6.64
+M,all-ftl,16,Optimal,24020,24020,0.0,8,24020,60,184198,Optimal,22275.0,22359.0,24020,7.83,7.43
+M,all-ltl,16,Optimal,22938,22523,1.8109,908,23123,60,90602,Optimal,22275.0,22359.0,22938,2.98,3.42
+L,all-ftl,20,Optimal,27017,27017,0.0,5,27017,90,210667,Optimal,24865.0,25175.0,27017,8.66,7.32
+L,all-ltl,20,Optimal,25450,24701,2.9433,1204,25719,90,108057,Optimal,24865.0,25175.0,25450,2.35,2.16
+X,all-ftl,29,Optimal,33483,33483,0.0,3,33495,120,112779,Optimal,29780.0,30072.0,33483,12.44,11.38
+X,all-ltl,29,Optimal,28844,27749,3.7943,1816,29202,120,105010,Optimal,29780.0,30072.0,28844,-3.14,-2.89
+XL,all-ftl,39,Optimal,58802,58802,0.0,27,70128,163,171860,Optimal,54727.0,55764.0,58802,7.45,25.76
+XL,all-ltl,39,Optimal,68308,61316,10.2371,1813,73212,180,76974,Optimal,54727.0,55764.0,68308,24.82,31.29
