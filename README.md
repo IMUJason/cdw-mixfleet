@@ -84,7 +84,7 @@ Fixed SA iteration budgets (from `results_reference.csv`):
 | XL | 171,860 | 55,764 | 54,727 (1800 s, gap 4.9%) |
 
 The SA stops at the **iteration budget** (bit-for-bit reproducible regardless of
-machine load) with a wall-clock cap of ~1.5x the reference time. Seed 42 (XL:
+machine load) with a wall-clock cap of the same 30-180 s wall-clock cap as the paper. Seed 42 (XL:
 seed 7) with the budget above reproduces the table exactly.
 
 The ILS baseline uses the same protocol with budgets denominated in
@@ -137,8 +137,8 @@ Exact/SA numbers for all five instances: `results_reference.csv` (root).
 | Fig. 3 (convergence) | `src/make_paper_figs.py` | `results/logs/sa_trace_*.csv` |
 | Fig. 4 (case map) | `src/make_paper_figs.py` | `data/external/dongsheng_*.json` |
 | Fig. 5 (benchmark) | `src/make_paper_figs.py` | `results_reference/mixfleet_bench.csv` |
-| Table 3 (benchmark) | `src/solve_exact.py` + `src/solve_sa.py` | `results_reference.csv` |
-| Table 4 (LP gaps) | `src/run_lp_gaps.py` | `results_reference/lp_gaps.csv` |
+| Table 4 (benchmark) | `src/solve_exact.py` + `src/solve_sa.py` | `results_reference.csv` |
+| Table 3 (LP gaps) | `src/run_lp_gaps.py` | `results_reference/lp_gaps.csv` |
 | Table 5 (ILS) | `src/solve_ils.py` | `results_reference/baseline_ils.csv` |
 | Tier 2 (restricted) | `src/run_mode_restricted.py` | `results_reference/mode_restricted.csv` |
 | Symmetric timing | `src/run_mode_restricted_sym.py` + `src/run_mixed_sym.py` | `results_reference/mode_restricted_sym.csv` |
