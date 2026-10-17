@@ -137,14 +137,14 @@ Exact/SA numbers for all five instances: `results_reference.csv` (root).
 | Fig. 3 (convergence) | `src/make_paper_figs.py` | `results/logs/sa_trace_*.csv` |
 | Fig. 4 (case map) | `src/make_paper_figs.py` | `data/external/dongsheng_*.json` |
 | Fig. 5 (benchmark) | `src/make_paper_figs.py` | `results_reference/mixfleet_bench.csv` |
-| Table 4 (benchmark) | `src/solve_exact.py` + `src/solve_sa.py` | `results_reference.csv` |
 | Table 3 (LP gaps) | `src/run_lp_gaps.py` | `results_reference/lp_gaps.csv` |
-| Table 5 (ILS) | `src/solve_ils.py` | `results_reference/baseline_ils.csv` |
-| Tier 2 (restricted) | `src/run_mode_restricted.py` | `results_reference/mode_restricted.csv` |
-| Symmetric timing | `src/run_mode_restricted_sym.py` + `src/run_mixed_sym.py` | `results_reference/mode_restricted_sym.csv` |
-| ALNS comparison | `src/run_alns.py` | `results_reference/alns_bench.csv` |
-| Factorial | `src/run_factorial.py` | `results_reference/factorial.csv` |
-| Evaluator diag | `src/run_evaluator_diag.py` | `results_reference/evaluator_diag.csv` |
+| Table 4 (benchmark) | `src/solve_exact.py` + `src/solve_sa.py` | `results_reference.csv` |
+| Table 5 (ablation) | `src/solve_sa.py` (`--disable-op` / `--no-restart`) | `results_reference/ablation.csv`, `ablation_ops.csv` |
+| Table 6 (SA/ILS/ALNS baseline) | `src/solve_ils.py` + `src/run_alns.py` | `results_reference/baseline_ils.csv`, `alns_bench.csv` |
+| Table 11 (factorial) | `src/run_factorial.py` | `results_reference/factorial.csv` |
+| Table 13 (Tier 2 restricted) | `src/run_mode_restricted.py` | `results_reference/mode_restricted.csv` |
+| Symmetric timing (Sec. 5.9) | `src/run_mode_restricted_sym.py` + `src/run_mixed_sym.py` | `results_reference/mode_restricted_sym.csv`, `mixed_sym.csv` |
+| Evaluator diag (Sec. 4) | `src/run_evaluator_diag.py` | `results_reference/evaluator_diag.csv` |
 
 ## Reporting basis (important)
 
