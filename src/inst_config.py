@@ -6,7 +6,18 @@ import params as P
 import mixfleet_model as MF
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CAL = os.path.join(ROOT, "results", "tables", "calibration_proposal.csv")
+
+
+def _find(name):
+    """发布包兼容: 依次尝试研究布局 results/tables/ 与发布布局 results_reference/。"""
+    for cand in (os.path.join(ROOT, "results", "tables", name),
+                 os.path.join(ROOT, "results_reference", name)):
+        if os.path.exists(cand):
+            return cand
+    return os.path.join(ROOT, "results", "tables", name)
+
+
+CAL = _find("calibration_proposal.csv")
 R = 8
 CLASSES = list(P.CLASSES)
 SA_TIME = {"S": 30, "M": 60, "L": 90, "X": 120}
@@ -18,7 +29,7 @@ SEEDS = [42, 7, 13, 99, 2024]
 def _bench_iters():
     """SA 固定迭代预算: 以 mixfleet_bench.csv 记录的 heu_iters 为准(单一事实源),
     使所有 SA 重跑逐位一致, 不再依赖墙钟/机器负载(消除跨表数字漂移)。"""
-    path = os.path.join(ROOT, "results", "tables", "mixfleet_bench.csv")
+    path = _find("mixfleet_bench.csv")
     out = {}
     try:
         with open(path, encoding="utf-8-sig") as f:
