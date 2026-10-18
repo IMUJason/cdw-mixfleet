@@ -2,7 +2,6 @@
 图1(调度网络示意)为 AI 绘制的静态资产(manuscript/fig1_network.png), 不由本脚本生成。
 输出按论文图号命名: fig3/fig4/fig5。"""
 import os, sys, json, math
-import os as _os
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -13,7 +12,6 @@ import numpy as np
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIG = os.path.join(ROOT, "results", "figures")
-_os.makedirs(FIG, exist_ok=True)
 NET = os.path.join(ROOT, "data", "external", "dongsheng_real_network.json")
 BND = os.path.join(ROOT, "data", "external", "dongsheng_boundaries.json")
 OSM = os.path.join(ROOT, "data", "external", "dongsheng_osm.json")
@@ -40,13 +38,13 @@ def fig_bench():
     a1.legend(fontsize=9, loc="upper left", framealpha=0.92)
     a1.grid(alpha=0.3); a1.margins(x=0.08)
     gaps = [float(r["gap_pct"]) for r in rows]
+    certs = [float(r["gap_certified_pct"]) for r in rows]
     a2.plot(xs, gaps, "o--", color="#55a868", label="vs. CPLEX incumbent")
-    s_row = next(r for r in rows if r["instance"].startswith("S"))
-    a2.plot(["S"], [float(s_row["gap_certified_pct"])], "*", color="#4c72b0", ms=14,
-            label="certified (S only; bound informative)")
+    a2.plot(xs, certs, "s-", color="#4c72b0",
+            label="certified vs. dual bound (XL loose)")
     a2.axhline(0, color="gray", ls=":", lw=1)
     a2.set_ylabel("Gap (%)"); a2.set_xlabel("Instance")
-    a2.set_ylim(min(0, min(gaps) - 0.25), max(gaps) * 1.30)
+    a2.set_ylim(min(0, min(gaps) - 0.25), max(certs) * 1.18)
     a2.legend(fontsize=9, loc="upper left", framealpha=0.92)
     a2.grid(alpha=0.3); a2.margins(x=0.08)
     fig.tight_layout(); fig.savefig(os.path.join(FIG, "fig5_bench.pdf"), bbox_inches="tight"); plt.close(fig)
@@ -230,15 +228,16 @@ def fig_map():
         Line2D([], [], marker="o", color=C["zone"], ls="", ms=8, mec="#333",
                label="Demand sub-district"),
     ]
-    ax.legend(handles=handles, loc="lower left", fontsize=7.6, frameon=True,
+    # 图例置于地图右侧外置竖排, 不遮挡任何地理元素; 版权行移到地图下方独立一行
+    ax.legend(handles=handles, loc="upper left", fontsize=7.6, frameon=False,
               facecolor="white", framealpha=0.95, edgecolor="#d0d0d0",
-              handletextpad=0.5, labelspacing=0.45, ncol=2, columnspacing=1.0,
-              bbox_to_anchor=(0.006, 0.010))
-    ax.text(0.994, 0.014,
+              handletextpad=0.5, labelspacing=0.5, ncol=1,
+              bbox_to_anchor=(1.03, 1.0))
+    ax.text(0.0, -0.045,
             "Boundary \u00a9 Amap (autoNavi) API, 2026  |  "
             "Roads \u00a9 OpenStreetMap contributors (ODbL)",
-            transform=ax.transAxes, fontsize=6.4, color="#666",
-            va="bottom", ha="right")
+            transform=ax.transAxes, fontsize=6.6, color="#666",
+            va="top", ha="left")
     _scale_bar(ax, 109.52, 39.945, 10, "10 km")
     _north_arrow(ax, x=0.045, ytop=0.93)
 
@@ -272,8 +271,8 @@ def fig_convergence():
                 drawstyle="steps-post", markevery=max(1, len(xs) // 8),
                 marker="o", ms=3.5)
     ax.set_xlabel("Wall-clock time (s)"); ax.set_ylabel("Best objective ($10^3$ CNY)")
-    # 图例放左下: 各轨迹平台期在右下、XL 高居右上, 左下为空白区
-    ax.legend(title="Instance", fontsize=9, framealpha=0.92, loc="lower left")
+    # 图例放右下: 平台期曲线集中在左侧与中部, 右下为空白区(避免遮挡 M/S 轨迹)
+    ax.legend(title="Instance", fontsize=9, framealpha=0.92, loc="lower right")
     ax.grid(alpha=0.25, lw=0.6)
     ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
     fig.savefig(os.path.join(FIG, "fig3_convergence.pdf"), bbox_inches="tight", pad_inches=0.05)
