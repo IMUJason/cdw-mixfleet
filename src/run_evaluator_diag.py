@@ -71,7 +71,7 @@ def collect_candidates(tag):
             ft, lr = copy.deepcopy(ft), copy.deepcopy(lr)  # 保持
             T = 0.5 * T0
         if it % SAMPLE_EVERY == 0:
-            cands.append((copy.deepcopy(ft), copy.deepcopy(lr), c_new))
+            cands.append((copy.deepcopy(ft), copy.deepcopy(lr), cur_c))  # 存当前方案的结构+成本(非被拒候选)
     return inst, cands
 
 
@@ -100,16 +100,35 @@ def main():
         if len(ff_costs) > 1:
             diffs = [e - f for f, e in zip(ff_costs, ex_costs)]
             import statistics
-            # Spearman rank correlation
-            ff_rank = {v: i for i, v in enumerate(sorted(range(len(ff_costs)), key=lambda k: ff_costs[k]))}
-            ex_rank = {v: i for i, v in enumerate(sorted(range(len(ex_costs)), key=lambda k: ex_costs[k]))}
+            # Spearman (并列平均秩; 常数样本无定义 -> NA)
+            def _avg_rank(xs):
+                order = sorted(range(len(xs)), key=lambda k: xs[k])
+                ranks = [0.0] * len(xs)
+                i = 0
+                while i < len(order):
+                    j = i
+                    while j + 1 < len(order) and xs[order[j + 1]] == xs[order[i]]:
+                        j += 1
+                    avg = (i + j) / 2.0
+                    for k in range(i, j + 1):
+                        ranks[order[k]] = avg
+                    i = j + 1
+                return ranks
             n = len(ff_costs)
-            d2 = sum((ff_rank[i] - ex_rank[i]) ** 2 for i in range(n))
-            rho = 1 - 6 * d2 / (n * (n * n - 1)) if n > 1 else 1.0
+            if len(set(ff_costs)) < 2 or len(set(ex_costs)) < 2:
+                rho_str = "NA (constant sample)"
+            else:
+                fr = _avg_rank(ff_costs)
+                er = _avg_rank(ex_costs)
+                mf = statistics.mean(fr)
+                me = statistics.mean(er)
+                num = sum((a - mf) * (b - me) for a, b in zip(fr, er))
+                den = math.sqrt(sum((a - mf) ** 2 for a in fr) * sum((b - me) ** 2 for b in er))
+                rho_str = f"{num / den:.4f}" if den else "NA"
             print(f"\n{tag} summary: n={n} | mean diff {statistics.mean(diffs):+.2f} "
                   f"({100*statistics.mean(diffs)/statistics.mean(ff_costs):+.3f}%) | "
                   f"min {min(diffs):+.2f} max {max(diffs):+.2f} | "
-                  f"Spearman rho {rho:.4f} | "
+                  f"Spearman rho {rho_str} | "
                   f"zero-diff rate {sum(1 for d in diffs if abs(d)<0.5)/len(diffs):.2%}", flush=True)
     with open(OUT, "w", newline="", encoding="utf-8") as fh:
         if all_rows:

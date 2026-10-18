@@ -2,6 +2,7 @@
 图1(调度网络示意)为 AI 绘制的静态资产(manuscript/fig1_network.png), 不由本脚本生成。
 输出按论文图号命名: fig3/fig4/fig5。"""
 import os, sys, json, math
+import os as _os
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -12,6 +13,7 @@ import numpy as np
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIG = os.path.join(ROOT, "results", "figures")
+_os.makedirs(FIG, exist_ok=True)
 NET = os.path.join(ROOT, "data", "external", "dongsheng_real_network.json")
 BND = os.path.join(ROOT, "data", "external", "dongsheng_boundaries.json")
 OSM = os.path.join(ROOT, "data", "external", "dongsheng_osm.json")

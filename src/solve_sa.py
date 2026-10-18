@@ -19,7 +19,7 @@ def main():
     ap.add_argument("--iters", type=int, required=True,
                     help="fixed iteration budget (paper budgets: see results_reference.csv)")
     ap.add_argument("--time", type=float, default=None,
-                    help="wall-clock cap s (default 1.5x the reference SA budget by instance)")
+                    help="wall-clock cap s (default the paper budget the reference SA budget by instance)")
     ap.add_argument("--no-reprice", action="store_true", help="skip exact re-pricing")
     ap.add_argument("--disable-op", default=None,
                     help="ablation: operator to disable (rar/insert/drop/relocate/swap/merge/twopt/ftl)")

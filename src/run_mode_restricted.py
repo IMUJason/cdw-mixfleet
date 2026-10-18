@@ -76,7 +76,7 @@ def semantics_check():
     c_ltl_transport = _P.TRIP_FIXED + _P.TRIP_PER_KM * d
     ok = abs(c_ftl_transport - c_ltl_transport) < 1e-9
     print(f"[check] same-site transport: FTL {c_ftl_transport:.3f} vs single-stop LTL {c_ltl_transport:.3f} "
-          f"-> identical={ok} (all-LTL feasible set contains all-FTL: ordering structural)", flush=True)
+          f"-> identical={ok} (single-stop LTL route matches FTL shuttle cost (per-tonne cost identity): ordering structural)", flush=True)
 
 
 def mixed_ref():

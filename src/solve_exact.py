@@ -55,8 +55,9 @@ def main():
     form = "" if (use_flow and use_mtz) else f" form={'strengthened' if use_flow else 'compact'}"
     if not use_mtz:
         form += ",no-mtz"
+    _b = f"{rep['bound']:.2f}" if rep['bound'] is not None else "n/a(CBC)"
     print(f"[{tag}] status={rep['status']} incumbent={rep['incumbent']:.2f} "
-          f"bound={rep['bound']:.2f} mip_gap={rep['mip_gap_pct']}% time={ct:.1f}s{form}")
+          f"bound={_b} mip_gap={rep['mip_gap_pct']}% time={ct:.1f}s{form}")
 
     # 提取方案(与主库 verify_alignment.extract_dispatch 同逻辑)
     import pulp
@@ -92,7 +93,8 @@ def main():
     plan = os.path.join(outdir, f"{tag}_exact_plan.csv")
     PIO.save_plan(plan, ftl_ntrip, ltl_routes, dict(
         method="exact", instance=tag, status=rep["status"],
-        cost=f"{rep['incumbent']:.2f}", bound=f"{rep['bound']:.2f}",
+        cost=f"{rep['incumbent']:.2f}",
+        bound=(f"{rep['bound']:.2f}" if rep['bound'] is not None else ""),
         mip_gap_pct=rep["mip_gap_pct"], time_s=f"{ct:.1f}"))
     print("plan ->", plan)
 

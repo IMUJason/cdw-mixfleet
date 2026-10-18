@@ -20,10 +20,19 @@ def gen_family(fam, size_id, seed, nf, nl, veh_desc):
 
 def main():
     rows = []
+    # 输入双布局: 研究区 results/scale_study/ 或发布包 results_reference/(scale_family_* 命名)
+    NAME_ALT = {"scale_small_final": "scale_family_small", "scale_large": "scale_family_large"}
+    found_any = False
     for name in ("scale_small_final", "scale_large"):
         path = os.path.join(CFG.ROOT, "results", "scale_study", name + ".csv")
         if not os.path.exists(path):
-            continue
+            alt = os.path.join(CFG.ROOT, "results_reference", NAME_ALT[name] + ".csv")
+            if os.path.exists(alt):
+                path = alt
+            else:
+                sys.exit(f"INPUT MISSING: neither results/scale_study/{name}.csv nor "
+                         f"results_reference/{NAME_ALT[name]}.csv exists under {CFG.ROOT}")
+        found_any = True
         with open(path, encoding="utf-8-sig") as fh:
             members = list(csv.DictReader(fh))
         for r in members:
@@ -49,6 +58,9 @@ def main():
                 with open(OUT, "w", newline="", encoding="utf-8") as fh:
                     w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
                     w.writeheader(); w.writerows(rows)
+    if not rows:
+        sys.exit("NO ROWS produced - refusing to write empty output")
+    print(f"rows: {len(rows)}")
     print("saved ->", OUT, flush=True)
 
 

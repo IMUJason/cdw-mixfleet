@@ -85,8 +85,9 @@ Fixed SA iteration budgets (from `results_reference.csv`):
 
 The SA stops at the **iteration budget** (bit-for-bit reproducible on any machine
 fast enough to complete the recorded counts; a wall-clock cap of the same 30-180 s
-as the paper guards extreme slowdowns). Seed 42 (XL: seed 7) with the budget above
-reproduces the table exactly.
+as the paper guards extreme slowdowns). Search seed 42 on all five instances (the
+XL instance's *demand realization* uses seed 7; the ILS baseline additionally runs
+its XL search at seed 7) with the budget above reproduces the table exactly.
 
 Reference hardware: Intel Core Ultra 9 285K, 256 GB RAM, Windows 11, Python 3.10,
 PuLP with CPLEX 22.1.1 (free academic edition).
@@ -149,8 +150,8 @@ Exact/SA numbers for all five instances: `results_reference.csv` (root).
 | Table 4 (benchmark) | `src/solve_exact.py` + `src/solve_sa.py` | `results_reference.csv` |
 | Table 5 (ablation) | `src/solve_sa.py` (`--disable-op` / `--no-restart`) | `results_reference/ablation.csv`, `ablation_ops.csv` |
 | Table 6 (SA/ILS/ALNS baseline) | `src/solve_ils.py` + `src/run_alns.py` | `results_reference/baseline_ils.csv`, `alns_bench.csv` |
-| Table 7 (certified family) | `src/scale_study/screen_small.py` | `results_reference/scale_family_screen.csv`, `scale_family_small.csv` |
-| Table 8 (large family) | `src/run_alns_family.py` + exact solves | `results_reference/alns_family.csv`, `scale_family_large.csv` |
+| Table 7 (certified family) | `src/scale_study/screen_small.py` (screening; certification by `solve_exact.py` on survivors) | `results_reference/scale_family_screen.csv`, `scale_family_small.csv` |
+| Table 8 (large family) | `src/scale_study/run_scale_study.py` (SA/ILS/CPLEX per draw) + `src/run_alns_family.py` (ALNS columns) | `results_reference/alns_family.csv`, `scale_family_large.csv` |
 | Table 9 (sensitivity on M) | `src/solve_exact.py` + `src/solve_sa.py` sweeps | `results_reference/sensitivity_mixfleet.csv` |
 | Table 10 (plan structure) | decomposition of solved MIPs | `results_reference/structure_stats.csv` |
 | Table 11 (factorial) | `src/run_factorial.py` | `results_reference/factorial.csv` |
