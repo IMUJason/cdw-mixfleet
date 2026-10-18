@@ -5,10 +5,15 @@
 import os, sys, json, time, urllib.request, urllib.parse
 sys.path.insert(0, os.path.dirname(__file__))
 import params as P
-import instance_gen as ig
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-KEY = open(os.path.join(ROOT, "data", "external", ".amap_key")).read().strip()
+try:
+    KEY = open(os.path.join(ROOT, "data", "external", ".amap_key")).read().strip()
+except FileNotFoundError:
+    KEY = None
+    import sys as _sys
+    print("[amap] no key at data/external/.amap_key - re-querying is unavailable; "
+          "the frozen matrix/network JSON in data/external/ needs no key.", file=_sys.stderr)
 CITY = "鄂尔多斯"; ADCODE = "150602"  # 东胜区
 CACHE = os.path.join(ROOT, "data", "external", "dongsheng_real_network.json")
 
@@ -166,7 +171,10 @@ def build_real_instance(n_periods=6):
 
 if __name__ == "__main__":
     inst = build_real_instance(6)
-    ig.save(inst, os.path.join(ROOT, "data", "processed", "instance_real_dongsheng.json"))
+    import json as _json
+    with open(os.path.join(ROOT, "data", "processed", "instance_real_dongsheng.json"), "w", encoding="utf-8") as fh:
+        _json.dump(inst, fh, ensure_ascii=False, indent=1)
+    print("saved ->", os.path.join(ROOT, "data", "processed", "instance_real_dongsheng.json"))
     print(f"real instance: {inst['n_events']} events, {inst['n_transfer']} transfer, {inst['n_sinks']} sinks, fleet {inst['fleet_size']}")
     print("sinks (real):", [(s.get('name'), s['type'], round(s['dist'],1), 'km') for s in inst['sinks']])
     print("real network:", inst['real_network'])

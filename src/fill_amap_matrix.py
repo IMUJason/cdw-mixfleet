@@ -6,7 +6,13 @@ from mixfleet_model import haversine_km
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NET = os.path.join(ROOT, "data", "external", "dongsheng_real_network.json")
-KEY = open(os.path.join(ROOT, "data", "external", ".amap_key")).read().strip()
+try:
+    KEY = open(os.path.join(ROOT, "data", "external", ".amap_key")).read().strip()
+except FileNotFoundError:
+    KEY = None
+    import sys as _sys
+    print("[amap] no key at data/external/.amap_key - re-querying is unavailable; "
+          "the frozen matrix/network JSON in data/external/ needs no key.", file=_sys.stderr)
 
 
 def amap_distance(origin, dest):

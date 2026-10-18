@@ -1,0 +1,54 @@
+﻿size_id,nf,nl,seed,veh,kept,note,status,incumbent,bound,gap_pct,time_s
+SE11,3,11,1,3F+11L/19v (7e+5d+7r),False,rejected:single LTL site dominance 0.69>0.45,,,,,
+SF11,4,11,1,4F+11L/22v (10e+5d+7r),False,rejected:single LTL site dominance 0.69>0.45,,,,,
+SE09,3,9,3,3F+9L/11v (3e+2d+6r),False,rejected:single LTL site dominance 0.57>0.45,,,,,
+SF13,4,13,2,4F+13L/21v (9e+6d+6r),True,,Optimal,60192.359299999924,59891.39826372805,0.5,136
+SE11,3,11,2,3F+11L/18v (8e+5d+5r),False,,Optimal,46196.6878,45493.4882107612,1.5222,300
+SF11,4,11,2,4F+11L/19v (9e+6d+4r),False,,Optimal,59136.565000000046,58546.775962903674,0.9973,300
+SE09,3,9,4,3F+9L/8v (0e+5d+3r),False,rejected:single LTL site dominance 0.60>0.45,,,,,
+SE11,3,11,3,3F+11L/11v (3e+2d+6r),False,,Optimal,26062.771,25832.887597717523,0.882,300
+SF13,4,13,1,4F+13L/22v (10e+5d+7r),False,,Optimal,58024.673999999985,57568.81652617825,0.7856,300
+SE09,3,9,2,3F+9L/17v (8e+5d+4r),False,,Optimal,45564.874200000006,45159.34074200248,0.89,300
+SF11,4,11,3,4F+11L/14v (5e+3d+6r),False,,Optimal,28109.173199993726,27192.11879190165,3.2625,300
+SF13,4,13,3,4F+13L/15v (5e+3d+7r),False,,Optimal,28724.147299999993,27892.89542533333,2.8939,301
+SE09,3,9,5,3F+9L/13v (4e+6d+3r),False,rejected:single LTL site dominance 0.60>0.45,,,,,
+SF11,4,11,4,4F+11L/15v (7e+5d+3r),True,,Optimal,38907.5445,38716.26820635301,0.4916,10
+SE09,3,9,6,3F+9L/21v (10e+5d+6r),False,rejected:single LTL site dominance 0.64>0.45,,,,,
+SE11,3,11,4,3F+11L/9v (0e+5d+4r),False,,Optimal,11438.6119,11334.54884965259,0.9098,300
+SE11,3,11,5,3F+11L/14v (4e+7d+3r),False,,Optimal,28294.26080000036,28054.673599843194,0.8468,300
+SF13,4,13,4,4F+13L/18v (7e+5d+6r),False,,Optimal,40391.474799999996,40141.65315003266,0.6185,300
+SA08,3,8,6,3F+8L/20v (10e+5d+5r),False,rejected:single LTL site dominance 0.64>0.45,,,,,
+SF13,4,13,5,4F+13L/17v (5e+7d+5r),False,,Optimal,33641.915300000255,33080.98246321452,1.6674,300
+SF11,4,11,5,4F+11L/16v (5e+7d+4r),False,,Optimal,32724.616400000275,32320.460703864585,1.235,300
+SE11,3,11,6,3F+11L/22v (10e+6d+6r),False,,Optimal,61183.49830000002,60692.75286133347,0.8021,300
+SF11,4,11,6,4F+11L/22v (11e+6d+5r),False,,Optimal,66793.98429999872,66411.59205133325,0.5725,300
+SF13,4,13,6,4F+13L/23v (11e+6d+6r),False,,Optimal,67822.8138,67220.39414056254,0.8882,300
+SA10,3,10,6,3F+10L/21v (10e+5d+6r),False,rejected:single LTL site dominance 0.49>0.45,,,,,
+SF11,4,11,7,4F+11L/14v (2e+9d+3r),False,rejected:single LTL site dominance 0.47>0.45,,,,,
+SE09,3,9,7,3F+9L/10v (2e+5d+3r),False,rejected:single LTL site dominance 0.47>0.45,,,,,
+SA08,3,8,7,3F+8L/9v (2e+5d+2r),False,rejected:single LTL site dominance 0.65>0.45,,,,,
+SE11,3,11,7,3F+11L/11v (2e+6d+3r),False,rejected:single LTL site dominance 0.47>0.45,,,,,
+SA10,3,10,7,3F+10L/11v (2e+6d+3r),False,rejected:single LTL site dominance 0.47>0.45,,,,,
+SB10,4,10,7,4F+10L/13v (2e+8d+3r),False,rejected:single LTL site dominance 0.47>0.45,,,,,
+SE09,3,9,8,3F+9L/12v (5e+3d+4r),False,rejected:single LTL site dominance 0.53>0.45,,,,,
+SB10,4,10,6,4F+10L/22v (11e+6d+5r),False,,Optimal,66243.41900000001,65753.66870991784,0.7393,300
+SB12,4,12,6,4F+12L/22v (11e+6d+5r),False,,Optimal,67115.3426000001,66613.07118995428,0.7484,300
+SF13,4,13,7,4F+13L/16v (2e+9d+5r),False,,Optimal,24145.126399999994,23448.75194333333,2.8841,300
+SB12,4,12,7,4F+12L/15v (2e+9d+4r),False,,Optimal,23306.21459999999,22656.42338999998,2.7881,301
+SB10,4,10,8,4F+10L/13v (7e+3d+3r),False,rejected:single LTL site dominance 0.60>0.45,,,,,
+SA08,3,8,8,3F+8L/12v (5e+3d+4r),False,rejected:single LTL site dominance 0.58>0.45,,,,,
+SE11,3,11,8,3F+11L/12v (5e+3d+4r),False,rejected:single LTL site dominance 0.49>0.45,,,,,
+SA10,3,10,8,3F+10L/12v (5e+3d+4r),False,rejected:single LTL site dominance 0.49>0.45,,,,,
+SF11,4,11,8,4F+11L/13v (7e+3d+3r),False,rejected:single LTL site dominance 0.60>0.45,,,,,
+SB12,4,12,8,4F+12L/14v (7e+3d+4r),False,rejected:single LTL site dominance 0.54>0.45,,,,,
+SF13,4,13,8,4F+13L/15v (7e+3d+5r),False,,Optimal,40924.2222,40660.30237185973,0.6449,300
+SG08,2,8,2,2F+8L/14v (8e+3d+3r),False,rejected:single LTL site dominance 0.53>0.45,,,,,
+SG09,2,9,1,2F+9L/15v (4e+4d+7r),True,,Optimal,34024.2164,33857.065006666664,0.4913,3
+SH07,3,7,2,3F+7L/16v (8e+5d+3r),False,rejected:single LTL site dominance 0.53>0.45,,,,,
+SG08,2,8,3,2F+8L/10v (2e+2d+6r),False,rejected:single LTL site dominance 0.57>0.45,,,,,
+SG09,2,9,3,2F+9L/10v (2e+2d+6r),False,rejected:single LTL site dominance 0.57>0.45,,,,,
+SG10,2,10,3,2F+10L/10v (2e+2d+6r),False,rejected:single LTL site dominance 0.57>0.45,,,,,
+SH07,3,7,3,3F+7L/10v (3e+2d+5r),False,rejected:single LTL site dominance 0.57>0.45,,,,,
+SG09,2,9,2,2F+9L/15v (8e+3d+4r),True,,Optimal,41530.1863,41347.96164286981,0.4388,7
+SH07,3,7,1,3F+7L/16v (7e+4d+5r),True,,Optimal,41199.67829999999,40994.06162748726,0.4991,12
+SG08,2,8,1,2F+8L/14v (4e+4d+6r),True,,Optimal,33682.369,33513.997108666656,0.4999,40

@@ -3,7 +3,7 @@
 import numpy as np
 
 # ---- 溯源 ID 索引（简记），完整出处见 docs/PROVENANCE.md ----
-# P01 东胜区台账 E1 实证(81 条, 2023-25)
+# P01 东胜区台账 E1 实证(81 原始/76 清洗后有效, 2023-25; 论文写 about eighty)
 # P02 多省 2024-25 联单/分类运输法规 E2(广东/北京/山东/辽宁...)
 # P03 4Step_CDW facility_list.csv / city_list.csv / plan2_parameters(团队数据)
 # P04 infrastructure_demolition_waste_1978_2018.xlsx (14 材料组分, 4Step)

@@ -5,10 +5,11 @@ manuscript. Entries cite one of three evidence levels:
 
 - **[L] literature / regulation-cited** — a specific published or regulatory source;
 - **[C] case-informed** — calibrated to aggregate statistics of the district's public
-  construction-waste filing records (2023–2025, ~80 anonymous aggregate entries: 100% of
+  construction-waste filing records (2023–2025: 81 raw records, 76 valid after cleaning, reported as "about eighty" in the paper; 100% of
   records fix the disposal destination and hauling corridor; earth-class bulk streams
   dominate filed volume; project-scale median ≈ 10,000 m³). The raw ledger is **not**
   distributed; only these aggregates enter the paper.
+- **[D] derived** — converted or rescaled by the authors from a cited source;
 - **[A] modeling assumption** — a research setting, disclosed as such and, where it
   matters, sensitivity-tested in the paper (range given).
 
@@ -20,15 +21,15 @@ manuscript. Entries cite one of three evidence levels:
 | Route slots T | 8 per vehicle | [A] | variable-space device; non-binding in all mixed-mode plans (paper §3.2) |
 | Mean cycle speed | 35 km/h | [A] | urban night traffic; §5.1 |
 | Load/unload time | 0.5 h per full-load equivalent | [A] | per-tonne handling in base model; per-stop 0/6/12 min and symmetric FTL 0.5 h tested (§5.6, §5.9) |
-| Fixed dispatch fee F_trip | 400 CNY/trip | [L] | Yu2025 (Chengdu carrier data: 750 CNY/truck-day) converted; sensitivity 200–600 (§5.6) |
-| Distance tariff | 3.9 CNY/truck-km | [L] | Yu2025 (diesel cost basis) |
+| Fixed dispatch fee F_trip | 400 CNY/trip | [D] | derived by the authors from Yu2025 (750 CNY/truck-day); sensitivity 200–600 (§5.6) |
+| Distance tariff | 3.9 CNY/truck-km | [D] | author cost conversion on a diesel basis, calibrated against Yu2025 tariff levels |
 | Shortage penalty π | 150 CNY/t | [C]+[L] | contractual deferral charges in carrier practice, cross-checked against penalty magnitudes in Wu2025; sensitivity 50–500 (§5.6) |
 | Sink fees (backfill / resource / landfill / transfer) | 20 / 45 / 30 / 12 CNY/t | [A] | case-informed tariff band; not varied (§6 discusses tariff design) |
 | Sink revenues (backfill / resource) | 8 / 60 CNY/t | [A] | recycled-product prices, case band |
-| Class–sink mapping | earth→backfill, demolition→resource, renovation→resource | [L] | manifest-fixed compliance routing |
-| FTL tonnage range | 40–600 t per site | [C] | filing-record bulk-stream scale (median project ≈10,000 m³ over a project life; per-night draws scaled accordingly) |
-| LTL tonnage range | 5–45 t per site | [C] | filing-record small-stream tail |
-| Class composition of draws | 60 / 25 / 15% (earth/demolition/renovation) | [C] | aggregate share of filed volume (~5/6 bulk) |
+| Class–sink mapping | earth→backfill, demolition→resource, renovation→resource | [C]+[A] | case-informed compliance practice; the manifest fixes destination and corridor per record, the specific class→facility assignment is a model setting |
+| FTL tonnage range | 40–600 t per site | [C]+[A] | aggregate-calibrated: filing-record bulk-stream scale (median project ≈10,000 m³); the per-night draw range is an author generation setting |
+| LTL tonnage range | 5–45 t per site | [C]+[A] | aggregate-calibrated small-stream tail; per-night draw range is an author setting |
+| Class composition of draws | 60 / 25 / 15% (earth/demolition/renovation) | [C]+[A] | anchored to the aggregate filed-volume share (~5/6 bulk); the exact split is an author setting |
 | Demand-volume law | lognormal, σ=1.1 | [A] | right-skew fitted to project-scale spread |
 | Fleet sizes (S/M/L/X) | per `results_reference/calibration_proposal.csv` | [A] | calibrated to 75–80% per-class night-hour utilization |
 | XL stress instance | 24 trucks, seed 7 | [A] | uncalibrated scale probe; seed-42 draw rejected for a capacity confound (paper §5.1) |

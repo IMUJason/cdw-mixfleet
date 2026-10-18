@@ -150,6 +150,10 @@ Exact/SA numbers for all five instances: `results_reference.csv` (root).
 | Table 4 (benchmark) | `src/solve_exact.py` + `src/solve_sa.py` | `results_reference.csv` |
 | Table 5 (ablation) | `src/solve_sa.py` (`--disable-op` / `--no-restart`) | `results_reference/ablation.csv`, `ablation_ops.csv` |
 | Table 6 (SA/ILS/ALNS baseline) | `src/solve_ils.py` + `src/run_alns.py` | `results_reference/baseline_ils.csv`, `alns_bench.csv` |
+**Family screening pipeline.** `run_scale_study.py` writes `results/scale_study/scale_small.csv`; the screening stage (`scale_study/screen_small.py`) seeds from `results/scale_study/scale_small_v2.csv` (4 pre-accepted draws) and logs to `screen_small.csv`; the finalized ten-member set is archived as `results_reference/scale_family_small.csv` (a rename of `scale_small_final.csv`), which the ALNS family helper reads via its reference fallback. All three CSVs ship with the package.
+
+**Amap API key (only for re-querying distances).** The frozen distance matrix and network JSON need no key. To re-query, place your own key in `data/external/.amap_key` (one line, file is git-ignored); `fill_amap_matrix.py` reads it from there and fails with a clear message if absent.
+
 | Table 7 (certified family) | `src/scale_study/screen_small.py` (screening; certification by `solve_exact.py` on survivors) | `results_reference/scale_family_screen.csv`, `scale_family_small.csv` |
 | Table 8 (large family) | `src/scale_study/run_scale_study.py` (SA/ILS/CPLEX per draw) + `src/run_alns_family.py` (ALNS columns) | `results_reference/alns_family.csv`, `scale_family_large.csv` |
 | Table 9 (sensitivity on M) | `src/solve_exact.py` + `src/solve_sa.py` sweeps | `results_reference/sensitivity_mixfleet.csv` |
