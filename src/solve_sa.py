@@ -30,7 +30,7 @@ def main():
     inst = load_instance(a.instance)
     tag = os.path.splitext(os.path.basename(a.instance))[0]
     if a.time is None:
-        cap = {"S": 45, "M": 90, "L": 135, "X": 180, "XL": 270}.get(tag, 600)
+        cap = {"S": 30, "M": 60, "L": 90, "X": 120, "XL": 180}.get(tag, 600)
     else:
         cap = a.time
     dis = {a.disable_op} if a.disable_op else None

@@ -83,9 +83,13 @@ Fixed SA iteration budgets (from `results_reference.csv`):
 | X  | 178,709 | 30,072 | 29,780 (1800 s, gap 3.6%) |
 | XL | 171,860 | 55,764 | 54,727 (1800 s, gap 4.9%) |
 
-The SA stops at the **iteration budget** (bit-for-bit reproducible regardless of
-machine load) with a wall-clock cap of the same 30-180 s wall-clock cap as the paper. Seed 42 (XL:
-seed 7) with the budget above reproduces the table exactly.
+The SA stops at the **iteration budget** (bit-for-bit reproducible on any machine
+fast enough to complete the recorded counts; a wall-clock cap of the same 30-180 s
+as the paper guards extreme slowdowns). Seed 42 (XL: seed 7) with the budget above
+reproduces the table exactly.
+
+Reference hardware: Intel Core Ultra 9 285K, 256 GB RAM, Windows 11, Python 3.10,
+PuLP with CPLEX 22.1.1 (free academic edition).
 
 The ILS baseline uses the same protocol with budgets denominated in
 perturbation–descent cycles: S 418 / M 194 / L 121 / X 47 / XL 50 (seed 42,
@@ -134,15 +138,26 @@ Exact/SA numbers for all five instances: `results_reference.csv` (root).
 
 | Paper exhibit | Script | Reference CSV |
 |---|---|---|
+| Fig. 1 (dispatch network schematic) | supplied figure (drawn) | - |
+| Fig. 2 (neighborhood operators) | supplied figure (drawn) | - |
 | Fig. 3 (convergence) | `src/make_paper_figs.py` | `results/logs/sa_trace_*.csv` |
 | Fig. 4 (case map) | `src/make_paper_figs.py` | `data/external/dongsheng_*.json` |
 | Fig. 5 (benchmark) | `src/make_paper_figs.py` | `results_reference/mixfleet_bench.csv` |
+| Table 1 (literature positioning) | editorial | - |
+| Table 2 (assumption layers) | editorial | - |
 | Table 3 (LP gaps) | `src/run_lp_gaps.py` | `results_reference/lp_gaps.csv` |
 | Table 4 (benchmark) | `src/solve_exact.py` + `src/solve_sa.py` | `results_reference.csv` |
 | Table 5 (ablation) | `src/solve_sa.py` (`--disable-op` / `--no-restart`) | `results_reference/ablation.csv`, `ablation_ops.csv` |
 | Table 6 (SA/ILS/ALNS baseline) | `src/solve_ils.py` + `src/run_alns.py` | `results_reference/baseline_ils.csv`, `alns_bench.csv` |
+| Table 7 (certified family) | `src/scale_study/screen_small.py` | `results_reference/scale_family_screen.csv`, `scale_family_small.csv` |
+| Table 8 (large family) | `src/run_alns_family.py` + exact solves | `results_reference/alns_family.csv`, `scale_family_large.csv` |
+| Table 9 (sensitivity on M) | `src/solve_exact.py` + `src/solve_sa.py` sweeps | `results_reference/sensitivity_mixfleet.csv` |
+| Table 10 (plan structure) | decomposition of solved MIPs | `results_reference/structure_stats.csv` |
 | Table 11 (factorial) | `src/run_factorial.py` | `results_reference/factorial.csv` |
+| Table 12 (Tier 1 naive policies) | greedy construction | `results_reference/mode_counterfactual.csv` |
 | Table 13 (Tier 2 restricted) | `src/run_mode_restricted.py` | `results_reference/mode_restricted.csv` |
+Note: in `mode_restricted_sym.csv`, the column `premium_vs_base_mixed_pct` is computed against the **base-timing** mixed incumbent (the convention at generation time); the paper's symmetric-timing premiums use the symmetric mixed incumbents in `mixed_sym.csv`.
+
 | Symmetric timing (Sec. 5.9) | `src/run_mode_restricted_sym.py` + `src/run_mixed_sym.py` | `results_reference/mode_restricted_sym.csv`, `mixed_sym.csv` |
 | Evaluator diag (Sec. 4) | `src/run_evaluator_diag.py` | `results_reference/evaluator_diag.csv` |
 
