@@ -151,11 +151,11 @@ def _scale_bar(ax, lon0, lat0, km, label):
     ax.plot([lon0, lon0 + deg], [lat0, lat0], color="#111", lw=2.6,
             solid_capstyle="butt", zorder=7)
     ax.text(lon0 + deg / 2, lat0 + 0.006, label, ha="center", va="bottom",
-            fontsize=7.5, color="#111", zorder=7)
+            fontsize=10.5, color="#111", zorder=7)
 
 
 def _north_arrow(ax, x=0.965, ytop=0.90):
-    ax.annotate("N", xy=(x, ytop), xycoords="axes fraction", fontsize=10,
+    ax.annotate("N", xy=(x, ytop), xycoords="axes fraction", fontsize=14,
                 weight="bold", ha="center", va="bottom", zorder=8)
     ax.annotate("", xy=(x, ytop - 0.015), xytext=(x, ytop - 0.085),
                 xycoords="axes fraction",
@@ -206,37 +206,37 @@ def fig_map():
     # 直接标注若干关键 POI(引线指向对应图标), 其余类别交给图例。
     label_box = dict(fc="white", ec="none", alpha=0.85, pad=0.2)
     arr = dict(arrowstyle="-", color="#666", lw=0.7, shrinkA=1, shrinkB=2)
-    ax.text(109.386, 39.874, "Boerjianghaizi Town", fontsize=8.5, color="#303030",
+    ax.text(109.386, 39.874, "Boerjianghaizi Town", fontsize=11, color="#303030",
             ha="center", va="bottom", zorder=7, bbox=label_box)
-    ax.text(109.843, 39.853, "Hantai Town", fontsize=8.5, color="#303030",
+    ax.text(109.843, 39.853, "Hantai Town", fontsize=11, color="#303030",
             ha="right", va="bottom", zorder=7, bbox=label_box)
     ax.annotate("Transfer station", xy=(110.027, 39.826),
-                xytext=(110.056, 39.870), fontsize=8.3, color="#303030",
+                xytext=(110.056, 39.870), fontsize=10.5, color="#303030",
                 ha="left", va="bottom", zorder=8, bbox=label_box, arrowprops=arr)
-    ax.text(109.985, 39.800, "Dongsheng urban core", fontsize=8.3, color="#303030",
+    ax.text(109.985, 39.800, "Dongsheng urban core", fontsize=10.5, color="#303030",
             ha="center", va="top", zorder=7, bbox=label_box)
 
     handles = [
         Line2D([], [], marker="s", color=C["resource"], ls="", ms=8, mec="#333",
-               label="CDW processing center"),
+               label="Processing center"),
         Line2D([], [], marker="^", color=C["transfer"], ls="", ms=8.5, mec="#333",
-               label="Standardized transfer station"),
+               label="Transfer station"),
         Line2D([], [], marker="D", color=C["backfill"], ls="", ms=7.5, mec="#333",
-               label="Backfill point (representative)"),
+               label="Backfill point (repr.)"),
         Line2D([], [], marker="v", color=C["landfill"], ls="", ms=8.5, mec="#333",
-               label="Landfill (representative)"),
+               label="Landfill (repr.)"),
         Line2D([], [], marker="o", color=C["zone"], ls="", ms=8, mec="#333",
                label="Demand sub-district"),
     ]
     # 图例置于地图右侧外置竖排, 不遮挡任何地理元素; 版权行移到地图下方独立一行
-    ax.legend(handles=handles, loc="upper left", fontsize=7.6, frameon=False,
+    ax.legend(handles=handles, loc="upper left", fontsize=10.5, frameon=False,
               facecolor="white", framealpha=0.95, edgecolor="#d0d0d0",
-              handletextpad=0.5, labelspacing=0.5, ncol=1,
+              handletextpad=0.5, labelspacing=0.55, ncol=1,
               bbox_to_anchor=(1.03, 1.0))
     ax.text(0.0, -0.045,
             "Boundary \u00a9 Amap (autoNavi) API, 2026  |  "
             "Roads \u00a9 OpenStreetMap contributors (ODbL)",
-            transform=ax.transAxes, fontsize=6.6, color="#666",
+            transform=ax.transAxes, fontsize=9.5, color="#666",
             va="top", ha="left")
     _scale_bar(ax, 109.52, 39.945, 10, "10 km")
     _north_arrow(ax, x=0.045, ytop=0.93)

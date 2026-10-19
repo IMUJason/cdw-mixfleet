@@ -11,10 +11,10 @@ It contains everything needed to reproduce the paper's computational results:
   (fees, recycling revenues), the class-licensed fleet, the frozen full driving
   distance matrix, and a snapshot of all solve-time parameters. These CSVs are
   the frozen ground truth: results do **not** depend on re-generating instances.
-- **`src/`** — the exact model (MILP with tonnage-flow strengthening), the two
-  metaheuristics benchmarked in the paper (fixed-iteration simulated annealing
-  and a textbook iterated local search), the exact plan re-pricer, and
-  command-line entry points.
+- **`src/`** — the exact model (MILP with tonnage-flow strengthening), the three
+  searches benchmarked in the paper (fixed-iteration simulated annealing, a
+  textbook iterated local search, and an adaptive large neighborhood search),
+  the exact plan re-pricer, and command-line entry points.
 - **`results_reference.csv`** — the paper's benchmark-table reference numbers
   (exact vs. SA) to compare your runs against, including the fixed SA iteration
   budgets.
@@ -123,15 +123,18 @@ Every number reported in the paper traces to one of the CSVs in
 | Shortage-penalty counterfactual (π = 50 / 500) | `pi_counterfactual.csv` |
 | Dispatch structure decomposition | `structure_stats.csv` |
 | Forced single-mode counterfactuals | `mode_counterfactual.csv` |
-| **Tier 2 equal-effort single-mode** (revision, Table: mode-restricted) | `mode_restricted.csv` |
-| **Tier 2 symmetric-timing variant** (revision) | `mode_restricted_sym.csv`, `mixed_sym.csv` |
+| **Tier 2 equal-effort single-mode** (Table 13) | `mode_restricted.csv` |
+| **Tier 2 symmetric-timing variant** (Sec. 5.9) | `mode_restricted_sym.csv`, `mixed_sym.csv` |
 | Closure runs (X double-time, L extended) | `e2_closure.csv` |
 | ALNS benchmark (5 anchor instances) | `alns_bench.csv` |
 | ALNS 20-family instances (×3 seeds) | `alns_family.csv` |
 | ALNS education ablation | `alns_nopolish.csv` |
 | SA 10-seed robustness (S/M/L/X) | `sa_seeds10.csv` |
+| SA restart robustness (5 restarts × S/M/L/X) | `sa_restarts.csv` |
 | Factorial experiment (H×π, fleet×fee) | `factorial.csv` |
 | Evaluator diagnostic (first-fit vs exact) | `evaluator_diag.csv` |
+| Fleet calibration (S/M/L/X compositions, 75–80% utilization) | `calibration_proposal.csv` |
+| Single-night probe | `probe_single_night.csv` |
 
 Exact/SA numbers for all five instances: `results_reference.csv` (root).
 
@@ -150,10 +153,6 @@ Exact/SA numbers for all five instances: `results_reference.csv` (root).
 | Table 4 (benchmark) | `src/solve_exact.py` + `src/solve_sa.py` | `results_reference.csv` |
 | Table 5 (ablation) | `src/solve_sa.py` (`--disable-op` / `--no-restart`) | `results_reference/ablation.csv`, `ablation_ops.csv` |
 | Table 6 (SA/ILS/ALNS baseline) | `src/solve_ils.py` + `src/run_alns.py` | `results_reference/baseline_ils.csv`, `alns_bench.csv` |
-**Family screening pipeline.** `run_scale_study.py` writes `results/scale_study/scale_small.csv`; the screening stage (`scale_study/screen_small.py`) seeds from `results/scale_study/scale_small_v2.csv` (4 pre-accepted draws) and logs to `screen_small.csv`; the finalized ten-member set is archived as `results_reference/scale_family_small.csv` (a rename of `scale_small_final.csv`), which the ALNS family helper reads via its reference fallback. All three CSVs ship with the package.
-
-**Amap API key (only for re-querying distances).** The frozen distance matrix and network JSON need no key. To re-query, place your own key in `data/external/.amap_key` (one line, file is git-ignored); `fill_amap_matrix.py` reads it from there and fails with a clear message if absent.
-
 | Table 7 (certified family) | `src/scale_study/screen_small.py` (screening; certification by `solve_exact.py` on survivors) | `results_reference/scale_family_screen.csv`, `scale_family_small.csv` |
 | Table 8 (large family) | `src/scale_study/run_scale_study.py` (SA/ILS/CPLEX per draw) + `src/run_alns_family.py` (ALNS columns) | `results_reference/alns_family.csv`, `scale_family_large.csv` |
 | Table 9 (sensitivity on M) | `src/solve_exact.py` + `src/solve_sa.py` sweeps | `results_reference/sensitivity_mixfleet.csv` |
@@ -161,10 +160,14 @@ Exact/SA numbers for all five instances: `results_reference.csv` (root).
 | Table 11 (factorial) | `src/run_factorial.py` | `results_reference/factorial.csv` |
 | Table 12 (Tier 1 naive policies) | greedy construction | `results_reference/mode_counterfactual.csv` |
 | Table 13 (Tier 2 restricted) | `src/run_mode_restricted.py` | `results_reference/mode_restricted.csv` |
-Note: in `mode_restricted_sym.csv`, the column `premium_vs_base_mixed_pct` is computed against the **base-timing** mixed incumbent (the convention at generation time); the paper's symmetric-timing premiums use the symmetric mixed incumbents in `mixed_sym.csv`.
-
 | Symmetric timing (Sec. 5.9) | `src/run_mode_restricted_sym.py` + `src/run_mixed_sym.py` | `results_reference/mode_restricted_sym.csv`, `mixed_sym.csv` |
 | Evaluator diag (Sec. 4) | `src/run_evaluator_diag.py` | `results_reference/evaluator_diag.csv` |
+
+Notes:
+
+- In `mode_restricted_sym.csv`, the column `premium_vs_base_mixed_pct` is computed against the **base-timing** mixed incumbent (the convention at generation time); the paper's symmetric-timing premiums use the symmetric mixed incumbents in `mixed_sym.csv`.
+- **Family screening pipeline.** `run_scale_study.py` writes `results/scale_study/scale_small.csv`; the screening stage (`scale_study/screen_small.py`) seeds from `results/scale_study/scale_small_v2.csv` (4 pre-accepted draws) and logs to `screen_small.csv`; the finalized ten-member set is archived as `results_reference/scale_family_small.csv` (a rename of `scale_small_final.csv`), which the ALNS family helper reads via its reference fallback. All three CSVs ship with the package.
+- **Amap API key (only for re-querying distances).** The frozen distance matrix and network JSON need no key. To re-query, place your own key in `data/external/.amap_key` (one line, file is git-ignored); `fill_amap_matrix.py` reads it from there and fails with a clear message if absent.
 
 ## Reporting basis (important)
 
