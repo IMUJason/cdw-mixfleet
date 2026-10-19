@@ -1,4 +1,0 @@
-﻿n_vehicles,mixed_obj,cpx_status,cpx_bound,cpx_time,fleet_hours_used,max_veh_hours,util_pct,max_routes_per_veh,forced_direct,fd_deferred_t,fd_vs_mixed_pct,forced_single_stop,fs_deferred_t,fs_vs_mixed_pct
-8,43973.0,Optimal,16747.7,602.3,42.62,8.66,66.6,3,46280.0,211.2,5.2,69653.0,389.4,58.4
-6,63652.0,Optimal,36908.0,604.6,33.77,8.2,70.4,3,65703.0,359.4,3.2,79587.0,468.0,25.0
-4,84866.0,Optimal,83126.1,609.3,20.97,8.68,65.5,4,84982.0,513.0,0.1,94424.0,585.6,11.3

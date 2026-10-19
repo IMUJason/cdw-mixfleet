@@ -134,11 +134,13 @@ Every number reported in the paper traces to one of the CSVs in
 | Factorial experiment (H×π, fleet×fee) | `factorial.csv` |
 | Evaluator diagnostic (first-fit vs exact) | `evaluator_diag.csv` |
 | Fleet calibration (S/M/L/X compositions, 75–80% utilization) | `calibration_proposal.csv` |
-| Single-night probe | `probe_single_night.csv` |
 
 Exact/SA numbers for all five instances: `results_reference.csv` (root).
 
 ## Table/figure → command index
+
+Rendered figures are not distributed here; they appear in the paper, and
+`src/make_paper_figs.py` regenerates Fig. 3–5 from the packaged data.
 
 | Paper exhibit | Script | Reference CSV |
 |---|---|---|
