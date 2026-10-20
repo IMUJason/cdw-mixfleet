@@ -146,8 +146,8 @@ Rendered figures are not distributed here; they appear in the paper, and
 |---|---|---|
 | Fig. 1 (dispatch network schematic) | supplied figure (drawn) | - |
 | Fig. 2 (neighborhood operators) | supplied figure (drawn) | - |
-| Fig. 3 (convergence) | `src/make_paper_figs.py` | `results/logs/sa_trace_*.csv` |
-| Fig. 4 (case map) | `src/make_paper_figs.py` | `data/external/dongsheng_*.json` |
+| Fig. 4 (convergence) | `src/make_paper_figs.py` | `results/logs/sa_trace_*.csv` |
+| Fig. 3 (case map) | `src/make_paper_figs.py` | `data/external/dongsheng_*.json` |
 | Fig. 5 (benchmark) | `src/make_paper_figs.py` | `results_reference/mixfleet_bench.csv` |
 | Table 1 (literature positioning) | editorial | - |
 | Table 2 (assumption layers) | editorial | - |
