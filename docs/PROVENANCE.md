@@ -4,7 +4,8 @@ Scope: every parameter that enters the **MixFleet** model and the numbers report
 manuscript. Entries cite one of three evidence levels:
 
 - **[L] literature / regulation-cited** — a specific published or regulatory source;
-- **[C] case-informed** — calibrated to aggregate statistics of the district's public
+- **[C] case-informed** — calibrated to aggregate statistics of the Dongsheng
+  District (Ordos City, Inner Mongolia Autonomous Region, China) public
   construction-waste filing records (2023–2025: 81 raw records, 76 valid after cleaning, reported as "about eighty" in the paper; 100% of
   records fix the disposal destination and hauling corridor; earth-class bulk streams
   dominate filed volume; project-scale median ≈ 10,000 m³). The raw ledger is **not**

@@ -6,8 +6,9 @@ of construction and demolition waste under a limited, class-licensed fleet"**
 
 It contains everything needed to reproduce the paper's computational results:
 
-- **`instances/`** — five self-contained instance files (**one CSV per instance**),
-  each with demand sites (class, tonnage, coordinates), class-compliant sinks
+- **`instances/`** — five self-contained instance files (**one CSV per instance**)
+  on the road network of Dongsheng District, Ordos City, Inner Mongolia
+  Autonomous Region, China; each file holds demand sites (class, tonnage, coordinates), class-compliant sinks
   (fees, recycling revenues), the class-licensed fleet, the frozen full driving
   distance matrix, and a snapshot of all solve-time parameters. These CSVs are
   the frozen ground truth: results do **not** depend on re-generating instances.
