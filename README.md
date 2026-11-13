@@ -2,7 +2,9 @@
 
 Replication package for **"Full-truckload and less-than-truckload mixed dispatch
 of construction and demolition waste under a limited, class-licensed fleet"**
-(submitted to *Transportation Research Part E*).
+(*Transportation Research Part E*, accepted 2026).
+
+**Paper DOI:** https://doi.org/10.1016/j.tre.2026.105403
 
 It contains everything needed to reproduce the paper's computational results:
 
@@ -207,5 +209,9 @@ NOTICE                     # data attribution (Amap)
 
 ## Citation
 
-If you use this package, please cite the paper (citation entry will be added
-upon publication).
+If you use this package, please cite the paper:
+
+> Cao, J. X. (2026). Full-truckload and less-than-truckload mixed dispatch of
+> construction and demolition waste under a limited, class-licensed fleet.
+> *Transportation Research Part E*.
+> https://doi.org/10.1016/j.tre.2026.105403
