@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """正式规模研究(隔离): 小规模族 10 个 + 大规模族 10 个。只写 results/scale_study/。
 
-协议(与用户确认的口径):
+协议:
   小规模: 候选池 4 规模 x seed 1..4(筛查顺延替补), CPLEX 1800s 容差 0.5%;
           关上(closed<=0.5%)者入族, 按固定顺序取前 10; 关不上者自动降级不采用。
           SA/ILS: 60s 墙钟标定记录迭代/周期数 -> 固定数重跑(逐位可复现), reprice 口径,
@@ -20,7 +20,7 @@ import mixfleet_model as MF, mixfleet_heuristic as MH
 import params as P
 import reprice as RP
 import gen_scale as GS
-import ils as ILS  # 本目录同源副本(与复现包 cdw-mixfleet 的 ils.py 逐字一致)
+import ils as ILS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 OUTDIR = os.path.join(ROOT, "results", "scale_study")

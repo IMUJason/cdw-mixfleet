@@ -188,7 +188,8 @@ solved as an LP. All solvers share one evaluator this way (`solve_sa.py` and
 instances/S.csv M.csv L.csv X.csv XL.csv   # frozen instances (incl. distance matrices)
 data/external/dongsheng_real_network.json  # queried Amap network (anchors + driving matrix);
                                            #   required by the family generator (NOTICE applies)
-src/params.py              # cost parameters with provenance IDs (P01-P10)
+src/params.py              # cost parameters with source-provenance IDs
+                           #   (docs/PROVENANCE.md; only params the model reads)
 src/instance_io.py         # instance CSV export/load (round-trip exact)
 src/mixfleet_model.py      # MILP: tonnage-flow strengthened formulation
                            #   (+ --no-flow / --no-mtz formulation switches)

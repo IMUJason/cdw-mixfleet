@@ -25,7 +25,7 @@ manuscript. Entries cite one of three evidence levels:
 | Fixed dispatch fee F_trip | 400 CNY/trip | [D] | derived by the authors from Yu2025 (750 CNY/truck-day); sensitivity 200–600 (§5.6) |
 | Distance tariff | 3.9 CNY/truck-km | [D] | author cost conversion on a diesel basis, calibrated against Yu2025 tariff levels |
 | Shortage penalty π | 150 CNY/t | [C]+[L] | contractual deferral charges in carrier practice, cross-checked against penalty magnitudes in Wu2025; sensitivity 50–500 (§5.6) |
-| Sink fees (backfill / resource / landfill / transfer) | 20 / 45 / 30 / 12 CNY/t | [A] | case-informed tariff band; not varied (§6 discusses tariff design) |
+| Sink fees (backfill / resource / landfill) | 20 / 45 / 30 CNY/t | [A] | case-informed tariff band; not varied (§6 discusses tariff design) |
 | Sink revenues (backfill / resource) | 8 / 60 CNY/t | [A] | recycled-product prices, case band |
 | Class–sink mapping | earth→backfill, demolition→resource, renovation→resource | [C]+[A] | case-informed compliance practice; the manifest fixes destination and corridor per record, the specific class→facility assignment is a model setting |
 | FTL tonnage range | 40–600 t per site | [C]+[A] | aggregate-calibrated: filing-record bulk-stream scale (median project ≈10,000 m³); the per-night draw range is an author generation setting |
@@ -37,9 +37,10 @@ manuscript. Entries cite one of three evidence levels:
 | Driving-distance matrix | 87/90 anchor pairs Amap API; 3 intra-city pairs × 1.30 detour | [C] | queried 2026; © Amap. Access leg straight-line from sub-district anchor |
 | Road network (case map) | OpenStreetMap extract | [L] | © OpenStreetMap contributors (ODbL) |
 
-Legacy parameters of the earlier network-design study (transfer throughput, recycling
-quotas, per-tonne-km unit transport) are **not** used by the MixFleet model and are
-retained in `src/params.py` only for backward compatibility.
+Parameters of the earlier network-design study (transfer throughput, recycling quotas,
+per-tonne-km unit transport, event-scale volume law) are **not** used by the MixFleet
+model and are **not** part of this package; `src/params.py` ships only the parameters
+the dispatch model and experiment drivers actually read.
 
 Literature keys refer to the manuscript's reference list: Bi et al. (2022) (FTL-like
 underloading, 112,892 movements), Yu et al. (2025) (disposal/recycling economics and
